@@ -4,7 +4,7 @@ set -e
 #================================================================================
 # 常量和全局变量
 #================================================================================
-VERSION="1.1.2"
+VERSION="1.1.3"
 SCRIPT_URL="https://raw.githubusercontent.com/hkfires/onekey-tun2socks/main/onekey-tun2socks.sh"
 
 # 颜色定义
@@ -260,26 +260,25 @@ get_custom_server_config() {
 
 select_alice_port() {
     local options=(
-        "新加坡机房IP:10001"
-        "香港家宽 (已弃用):20000"
-        "台湾家宽:30000"
-        "越南家宽 (已弃用):40000"
-        "日本家宽:50000"
+        "台湾家宽 #1:10001"
+        "台湾家宽 #2:10002"
+        "台湾家宽 #3:10003"
+        "台湾家宽 #4:10004"
+        "台湾家宽 #5:10005"
+        "台湾家宽 #6:10006"
+        "台湾家宽 #7:10007"
+        "台湾家宽 #8:10008"
     )
     echo >&2
     echo -e "${YELLOW}=========================================================${NC}" >&2
-    echo -e "${RED}注意：由于DDOS导致的链路不佳，香港、越南家宽已被直接弃用。${NC}" >&2
+    echo -e "${GREEN}Alice Socks5 出口已统一为台湾家宽，端口范围 10001-10008。${NC}" >&2
     echo -e "${YELLOW}=========================================================${NC}" >&2
     echo >&2
-    info "请为 Alice 模式选择 Socks5 出口端口:" >&2
+    info "请为 Alice 模式选择 Socks5 出口端口 (全部为台湾家宽):" >&2
     for i in "${!options[@]}"; do
         local option_text="${options[$i]%%:*}"
         local port="${options[$i]#*:}"
-        if [[ "$option_text" == *"已弃用"* ]]; then
-            printf "  %s) ${RED}%s (端口: %s)${NC}\n" "$((i+1))" "$option_text" "$port" >&2
-        else
-            printf "  %s) ${GREEN}%s (端口: %s)${NC}\n" "$((i+1))" "$option_text" "$port" >&2
-        fi
+        printf "  %s) ${GREEN}%s (端口: %s)${NC}\n" "$((i+1))" "$option_text" "$port" >&2
     done
 
     local choice
